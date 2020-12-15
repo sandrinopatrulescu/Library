@@ -1,0 +1,11 @@
+book_id: 1, title: Meditations, author: Marcus Aurelius
+book_id: 2, title: War and Peace, author: Leo Tolstoy
+book_id: 3, title: Crime and Punishment, author: Dostoevsky
+book_id: 4, title: The Idiot, author: Dostoevsky
+book_id: 5, title: A Confession, author: Leo Tolstoy
+book_id: 11, title: Critique of Pure Reason, author: Immanuel Kant
+book_id: 12, title: Republic, author: Plato
+book_id: 13, title: Man’s Search for Meaning, author: Viktor Frankl
+book_id: 14, title: Paltinis Diary, author: Gabriel Liiceanu
+book_id: 15, title: Demons, author: Dostoevsky
+book_id: 7, title: ada, author: 2
