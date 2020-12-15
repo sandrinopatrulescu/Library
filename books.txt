@@ -1,11 +1,11 @@
-book_id: 1, title: Meditations, author: Marcus Aurelius
-book_id: 2, title: War and Peace, author: Leo Tolstoy
-book_id: 3, title: Crime and Punishment, author: Dostoevsky
-book_id: 4, title: The Idiot, author: Dostoevsky
-book_id: 5, title: A Confession, author: Leo Tolstoy
-book_id: 11, title: Critique of Pure Reason, author: Immanuel Kant
-book_id: 12, title: Republic, author: Plato
-book_id: 13, title: Man’s Search for Meaning, author: Viktor Frankl
-book_id: 14, title: Paltinis Diary, author: Gabriel Liiceanu
-book_id: 15, title: Demons, author: Dostoevsky
-book_id: 7, title: ada, author: 2
+{"_id": 1, "_Book__title": "Meditations", "_Book__author": "Marcus Aurelius"}
+{"_id": 2, "_Book__title": "War and Peace", "_Book__author": "Leo Tolstoy"}
+{"_id": 3, "_Book__title": "Crime and Punishment", "_Book__author": "Dostoevsky"}
+{"_id": 4, "_Book__title": "The Idiot", "_Book__author": "Dostoevsky"}
+{"_id": 5, "_Book__title": "A Confession", "_Book__author": "Leo Tolstoy"}
+{"_id": 11, "_Book__title": "Critique of Pure Reason", "_Book__author": "Immanuel Kant"}
+{"_id": 12, "_Book__title": "Republic", "_Book__author": "Plato"}
+{"_id": 13, "_Book__title": "Man\u2019s Search for Meaning", "_Book__author": "Viktor Frankl"}
+{"_id": 14, "_Book__title": "Paltinis Diary", "_Book__author": "Gabriel Liiceanu"}
+{"_id": 15, "_Book__title": "Demons", "_Book__author": "Dostoevsky"}
+{"_id": "500", "_Book__title": "da", "_Book__author": "da"}

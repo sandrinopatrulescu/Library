@@ -56,18 +56,19 @@ class BookService(object):
         1. We delete the book from the repository
         """
         self.__validator.validate(Book(id_, None, None))
-        book = self.__repository.remove_by_attribute('id', id_)
+        book = self.__repository.get_by_attribute('id', id_)
+        self.__repository.remove_by_attribute('id', id_)
 
         """
         2. We delete the rentals with the respective book from the repository
         """
-        rentals = self.__rental_service.filter_rentals(None, book.id, None, None, None)
+        rentals = self.__rental_service.filter_rentals(None, id_, None, None, None)
         for rental in rentals:
             self.__rental_service.remove(rental.id)
 
         if self._caller != "undo":
             del self.__undo_service._history[self.__undo_service._index + 1:]
-            undo = FunctionCall(self.create, book.id, book.title, book.author)
+            undo = FunctionCall(self.create, id_, book.title, book.author)
             redo = FunctionCall(self.remove)
             operation = Operation(undo, redo)
             # self.__undo_service.record(operation)
@@ -77,7 +78,7 @@ class BookService(object):
                 undo = FunctionCall(self.__rental_service.create_rental, rental.id, rental.book_id, rental.client_id,
                                     rental.rented_date, rental.returned_date)
                 redo = FunctionCall(self.__rental_service.remove, rental.id)
-                cascade_list += Operation(undo, redo)
+                cascade_list += [Operation(undo, redo)]
             cascaded_operation = CascadeOperation(*cascade_list)
             self.__undo_service.record(cascaded_operation)
         self._caller = "default"
@@ -108,21 +109,21 @@ class BookService(object):
             redo = FunctionCall(self.update, old_book.id, new_book.id, new_book.title, new_book.author)
             operation = Operation(undo, redo)
         """assuming id can be also updated, then we will update the rentals"""
-        if new_id != id:
+        if new_id != id_:
             rentals = self.__rental_service.filter_rentals(None, old_book.id, None, None, None)
             for rental in rentals:
-                self.__rental_service.update_rental(rental.id, new_book.id, rental.client_id, rental.rented_date,
+                self.__rental_service.update_rental(rental.id, rental.id, new_book.id, rental.client_id, rental.rented_date,
                                                     rental.returned_date)
 
             if self._caller != "undo":
                 rentals = self.__rental_service.filter_rentals(None, new_book.id, None, None, None)
                 cascade_list = [operation]
                 for rental in rentals:
-                    undo = FunctionCall(self.__rental_service.update_rental, rental.id, old_book.id, rental.client_id,
+                    undo = FunctionCall(self.__rental_service.update_rental, rental.id, rental.id, old_book.id, rental.client_id,
                                         rental.rented_date, rental.returned_date)
-                    redo = FunctionCall(self.__rental_service.update_rental, rental.id, new_book.id, rental.client_id,
+                    redo = FunctionCall(self.__rental_service.update_rental, rental.id, rental.id, new_book.id, rental.client_id,
                                         rental.rented_date, rental.returned_date)
-                    cascade_list += Operation(undo, redo)
+                    cascade_list = cascade_list + [Operation(undo, redo)]
                 cascade_operation = CascadeOperation(*cascade_list)
                 self.__undo_service.record(cascade_operation)
         else:
@@ -130,7 +131,7 @@ class BookService(object):
                 self.__undo_service.record(operation)
         self._caller = "default"
         # update the book
-        self.__repository.update_by_attribuete('id', id_, new_book)
+        self.__repository.update_by_attribute('id', id_, new_book)
         return old_book
 
     def list(self):

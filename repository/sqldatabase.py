@@ -26,25 +26,26 @@ class SQLDataBase:
 
 x = SQLDataBase('mydatabase')
 x.create_connection()
-sql_create_projects_table = """ CREATE TABLE IF NOT EXISTS projects (
-                                        id integer PRIMARY KEY,
-                                        name text NOT NULL,
-                                        begin_date text,
-                                        end_date text
-                                    ); """
-sql_create_tasks_table = """CREATE TABLE IF NOT EXISTS tasks (
-                                    id integer PRIMARY KEY,
-                                    name text NOT NULL,
-                                    priority integer,
-                                    status_id integer NOT NULL,
-                                    project_id integer NOT NULL,
-                                    begin_date text NOT NULL,
-                                    end_date text NOT NULL,
-                                    FOREIGN KEY (project_id) REFERENCES projects (id)
-                                );"""
+
+book_table = '''CREATE TABLE BOOK
+         (ID INT PRIMARY KEY     NOT NULL,
+         TITLE           TEXT    NOT NULL,
+         AUTHOR            TEXT     NOT NULL);'''
+
+client_table = '''CREATE TABLE CLIENT
+         (ID INT PRIMARY KEY     NOT NULL,
+         NAME          TEXT    NOT NULL);'''
+
+client_table = '''CREATE TABLE RENTAL
+         (ID INT PRIMARY KEY     NOT NULL,
+         BOOK_ID           INT    NOT NULL,
+         CLIENT_ID            INT     NOT NULL,
+         RENTED_DATE            TEXT     NOT NULL,
+         RETURNED_DATE            TEXT     NOT NULL);'''
+
 
 if x.connection is not None:
-    x.create_table(sql_create_projects_table)
-    x.create_table(sql_create_tasks_table)
+    x.create_table(book_table)
+    x.create_table(client_table)
 else:
     print("Error! cannot create the database connection.")

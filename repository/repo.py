@@ -123,10 +123,8 @@ class IterableBasedRepository:
 
     def find_using_attribute(self, attribute, value):
         """
-
-        :param attribute:
-        :param value:
-        :return:
+        Return the index of an object from the repository having the given attribute with the given value
+        Returns -1 if no such object was found
         """
         for index in range(len(self.__list)):
             item = self.__list[index]
@@ -136,17 +134,21 @@ class IterableBasedRepository:
 
     def store(self, item):
         """
+        Stores a new item into the repository
         Validation for attributes is done in the service
+        :param item: item to be stored
+        :return: string - a message saying what object was stored
         """
         self.__list.append(item)
         return 'Stored ' + str(item)
 
     def remove_by_attribute(self, attribute, value):
         """
-
-        :param attribute:
-        :param value:
-        :return:
+        Remove from the repository the object with the given attribute and value
+        :param attribute: the attribute of the object to be removed
+        :param value: the value of the attribute of the object which is removed
+        :raise: RepositoryException - if there is no item satisfying the given attribute & value -based conditions
+        :return: string - a message saying what object was removed
         """
         index = self.find_using_attribute(attribute, value)
         # if item not in self.__list:
@@ -157,6 +159,13 @@ class IterableBasedRepository:
         return "Removed item with {} equal to {}".format(attribute, value)
 
     def update_by_attribute(self, attribute, value, new_item):
+        """
+        Update the repo by replacing an object with a given value for a given attribute with a new given object
+        :param attribute: attribute of the to be replaced object
+        :param value: attribute's value of the to be replaced object
+        :param new_item: the new object which will be replaced with
+        :return: string - a message saying which object was updated
+        """
         index = self.find_using_attribute(attribute, value)
         # if old_item not in self.__list:
         #     raise RepositoryException("Item is not in the repository!")
@@ -166,6 +175,13 @@ class IterableBasedRepository:
         return 'Updated item with {} equal to {}'.format(attribute, value)
 
     def get_by_attribute(self, attribute, value):
+        """
+        Get an object from the repository by finding it using the value of a given attribute
+        :param attribute: name of the object's attribute
+        :param value: value of the object's attribute
+        :raise: RepositoryException - in case no such object was found
+        :return: the found object
+        """
         index = self.find_using_attribute(attribute, value)
         if index == -1:
             raise RepositoryException("Item is not in the repository!")
@@ -177,12 +193,20 @@ class IterableBasedRepository:
         return self.__list[index]
 
     def get_all(self):
+        """
+        Get all objects in the repository and return them as a list
+        :return: a list of all objects present in the repository
+        """
         result = []
         for item in iter(self.__list):
             result.append(item)
         return result
 
     def remove_all(self):
+        """
+        Remove all items from the repository
+        :return: string - a message saying the removal was successful
+        """
         length = len(self.__list)
         while length > 0:
             del self.__list[length - 1]
@@ -190,6 +214,10 @@ class IterableBasedRepository:
         return "Removed all items"  # return []
 
     def __str__(self):
+        """
+        Convert repository elements into their string version (assuming it exists)
+        :return: string: result - all books from the repository printed line by line
+        """
         result = ""
         for item in iter(self.__list):
             result = result + item.__str__() + '\n'

@@ -35,7 +35,8 @@ class Console(object):
         new_id = input("new id: ").strip()
         new_title = input("new title: ").strip()
         new_author = input("new author: ").strip()
-        self.__book_service.update(id_, new_id, new_title, new_author)
+        book = self.__book_service.update(id_, new_id, new_title, new_author)
+        print(book)
 
     def _book_list(self):
         books = self.__book_service.list()
@@ -57,7 +58,8 @@ class Console(object):
         id_ = input("client id: ").strip()
         new_id = input("new id: ").strip()
         new_name = input("new name: ").strip()
-        self.__client_service.update(id_, new_id, new_name)
+        client = self.__client_service.update(id_, new_id, new_name)
+        print(client)
 
     def _client_list(self):
         clients = self.__client_service.list()
@@ -152,6 +154,7 @@ class Console(object):
     def start(self):
 
         while True:
+            print('-' * 200)
             print('\n\nChoose functionality:')
             try:
                 # used for printing the history
@@ -186,5 +189,5 @@ class Console(object):
                     raise TypeError("Invalid option number")
             except Exception as e:
                 print(e)  # print(e, " str(error)=", str(e))
-                # raise e
+                #raise e
 

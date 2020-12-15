@@ -15,9 +15,9 @@ from ui.console import Console
 
 def add_entries():
 
-    # book_repository.remove_all()
-    # client_repository.remove_all()
-    # rental_repository.remove_all()
+    book_repository.remove_all()
+    client_repository.remove_all()
+    rental_repository.remove_all()
     book_service.create(1, "Meditations", "Marcus Aurelius")
 
     book_service.create(2, "War and Peace", "Leo Tolstoy")

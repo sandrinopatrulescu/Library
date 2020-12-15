@@ -14,9 +14,9 @@ class JsonFileRepository(IterableBasedRepository):
     def _load_file(self):
         if os.path.getsize(self._file_name) != 0:
             with open(self._file_name, 'r') as json_file:
-                json_serialized_books = json.load(json_file)
-                for json_serialized_book in json_serialized_books:
-                    values_of_attributes = json.loads(json_serialized_book)
+                json_serialized_items = json.load(json_file)
+                for json_serialized_item in json_serialized_items:
+                    values_of_attributes = json.loads(json_serialized_item)
                     item = self.type(*[values_of_attributes[attribute] for attribute in values_of_attributes])
                     super().store(item)
                 json_file.close()

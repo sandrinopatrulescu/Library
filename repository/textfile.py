@@ -1,4 +1,5 @@
 import json
+import jsonpickle
 import os
 
 from domain.book import Book
@@ -7,7 +8,6 @@ from repository.repo import Repository, IterableBasedRepository
 '''
 Swap 'IterableBasedRepository' and 'Repository when necessary'
 '''
-
 
 class FileRepository(IterableBasedRepository):
     def __init__(self, filename, entity_type):
@@ -20,47 +20,28 @@ class FileRepository(IterableBasedRepository):
 
         :return:
         """
-        # print('-' * 100)
-        # print("test load:")
         if os.path.getsize(self._file_name) != 0:
             with open(self._file_name, 'rt') as file:
                 for line in file:
-                    # the line read from file will be a dictionary of the class as a string
-                    # the dictionary as string is converted into a dictionary
-                    values_of_attributes = json.loads(line)
+                    values_of_attributes = jsonpickle.loads(line)
                     item = self.type(*[values_of_attributes[attribute] for attribute in values_of_attributes])
                     super().store(item)
-                    # print(type(line), line, str(line))
-                    # print(type(item), item, str(item))
-                    # print('repo as str:', self.__str__())
                 file.close()
-            # print("end of test load")
-            # print('-' * 100)
 
     def _save_file(self):
         """
 
         :return:
         """
-        # print('-' * 100)
-        # print("test save:")
         with open(self._file_name, 'wt') as file:
             items = self.get_all()
-            # print('repo size:', len(self.get_all()))
             for item in items:
-                line = json.dumps(item.__dict__) + "\n"  # the line stored in the file will be a dictionary of the class
-                # print(type(item), item, str(item))
-                # print(type(line), line, str(line))
+                line = jsonpickle.dumps(item.__dict__) + "\n"  # the line stored in the file will be a dictionary of the class
                 file.write(line)
             file.close()
-        # print("end of test save")
-        # print('-' * 100)
 
     def store(self, item):
         result = super().store(item)
-        # print('store result:', result)
-        # print('repo len', len(self.get_all()))
-        # print('test store:', len(self.get_all()), str(self))
         self._save_file()
         return result
 
@@ -97,7 +78,7 @@ def test():
     # print(repo.__str__())
 
 
-# test()
+#test()
 # TODO: remove old classes
 '''
 class BookFileRepository(Repository):

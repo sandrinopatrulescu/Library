@@ -51,7 +51,8 @@ class ClientService(object):
         """
         # check what happens at line 48
         self.__validator.validate(Client(id_, None))
-        removed_client = self.__repository.remove_by_attribute('id', id_)
+        client = self.__repository.get_by_attribute('id', id_)
+        self.__repository.remove_by_attribute('id', id_)
         # print(type(client))
         # print(str(client))
         # print(client.__str__())
@@ -73,11 +74,11 @@ class ClientService(object):
             for rental in rentals:
                 undo = FunctionCall(self.__rental_service.create_rental, rental.id, rental.book_id, client.id, rental.rented_date, rental.returned_date)
                 redo = FunctionCall(self.__rental_service.remove, rental.id)
-                cascade_list += Operation(undo, redo)
+                cascade_list += [Operation(undo, redo)]
             cascade_operation = CascadeOperation(*cascade_list)
             self.__undo_service.record(cascade_operation)
         self._caller = "default"
-        return removed_client
+        return client
 
     def update(self, id_, new_id, new_name):
         """
@@ -115,7 +116,7 @@ class ClientService(object):
                 for rental in rentals:
                     undo = FunctionCall(self.__rental_service.update_rental, rental.id, rental.book_id, old_client.id, rental.rented_date, rental.returned_date)
                     redo = FunctionCall(self.__rental_service.update_rental, rental.id, rental.book_id, new_client.id, rental.rented_date, rental.returned_date)
-                    cascade_list += Operation(undo, redo)
+                    cascade_list += [Operation(undo, redo)]
                 cascade_operation = CascadeOperation(*cascade_list)
                 self.__undo_service.record(cascade_operation)
         else:

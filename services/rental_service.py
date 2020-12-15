@@ -1,6 +1,6 @@
 from datetime import date
 
-from a10_module.sort import odd_even_sort
+from a10_module.sort import odd_even_sort, sort_dictionary
 from domain.rental import Rental
 from services.undo_and_redo_service import FunctionCall, Operation
 
@@ -169,18 +169,6 @@ class RentalService(object):
             return "Book was successfully returned"
         return rental
 
-    def sort(self, dictionary):
-        """
-
-        :param dictionary:
-        :return:
-        """
-        order = {"ascending": 1, "descending": -1}
-        # return {key: value for key, value in sorted(dictionary.items(), key=lambda item: order["descending"] * item[1])}
-        converted_to_list = list(dictionary.items())
-        odd_even_sort(converted_to_list, lambda item1, item2: item1[1] >= item2[1])
-        sorted_list = converted_to_list
-        return {item[0]: item[1] for item in sorted_list}
 
     def most_rented_books(self):
         """
@@ -191,7 +179,7 @@ class RentalService(object):
         for rental in self.__repository.get_all():
             self.rent_count_of_books[rental.book_id] = self.rent_count_of_books[rental.book_id] + 1
 
-        sorted_list = self.sort(self.rent_count_of_books)
+        sorted_list = sort_dictionary(self.rent_count_of_books, lambda item1, item2: item1[1] >= item2[1])
         self.rent_count_of_books = sorted_list
         # print("check most rented books: ", self.rent_count_of_books)
         result = "Most rented books:\n"
@@ -216,7 +204,7 @@ class RentalService(object):
             self.rent_days_of_clients[rental.client_id] = self.rent_days_of_clients[rental.client_id] + int(date_difference.days)
 
         # print(rent_days_of_clients)  # - check validity
-        sorted_list = self.sort(self.rent_days_of_clients)
+        sorted_list = sort_dictionary(self.rent_days_of_clients, lambda item1, item2: item1[1] >= item2[1])
         self.rent_days_of_clients = sorted_list
         # print(sorted_rent_days_of_clients)  # - check validity
         # print("check most active clients: ", self.rent_days_of_clients)
@@ -237,7 +225,7 @@ class RentalService(object):
             author = self.__book_repository.get_by_attribute('id', rental.book_id).author
             self.rent_count_of_authors[author] = self.rent_count_of_authors[author] + 1
 
-        sorted_list = self.sort(self.rent_count_of_authors)
+        sorted_list = sort_dictionary(self.rent_count_of_authors, lambda item1, item2: item1[1] >= item2[1])
         self.rent_count_of_authors = sorted_list
         # print("check most rented authors: ", self.rent_count_of_authors)
         if len(self.rent_count_of_authors) != 0:
