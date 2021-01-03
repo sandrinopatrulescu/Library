@@ -8,4 +8,5 @@
 {"_id": 13, "_Book__title": "Man\u2019s Search for Meaning", "_Book__author": "Viktor Frankl"}
 {"_id": 14, "_Book__title": "Paltinis Diary", "_Book__author": "Gabriel Liiceanu"}
 {"_id": 15, "_Book__title": "Demons", "_Book__author": "Dostoevsky"}
-{"_id": "500", "_Book__title": "da", "_Book__author": "da"}
+{"_id": 8, "_Book__title": "nu", "_Book__author": "nu"}
+{"_id": "69", "_Book__title": "da", "_Book__author": "da"}

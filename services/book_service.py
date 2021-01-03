@@ -69,7 +69,7 @@ class BookService(object):
         if self._caller != "undo":
             del self.__undo_service._history[self.__undo_service._index + 1:]
             undo = FunctionCall(self.create, id_, book.title, book.author)
-            redo = FunctionCall(self.remove)
+            redo = FunctionCall(self.remove, id_)
             operation = Operation(undo, redo)
             # self.__undo_service.record(operation)
 

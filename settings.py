@@ -4,7 +4,7 @@ from domain.rental import Rental
 from repository.binaryfile import BinaryFileRepository
 from repository.jsonfile import JsonFileRepository
 from repository.repo import Repository, IterableBasedRepository
-from repository.textfile import FileRepository
+from repository.txtfile import FileRepository
 from ui.console import Console
 from ui.gui import Gui
 

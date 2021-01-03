@@ -62,7 +62,7 @@ class FileRepository(IterableBasedRepository):
 
 
 def test():
-    repo = FileRepository('test_file.txt', Book)
+    repo = FileRepository('temp.txt', Book)
 
     '''
     print(repo.store(Book(1, "1", "11")))

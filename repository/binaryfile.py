@@ -14,16 +14,16 @@ class BinaryFileRepository(IterableBasedRepository):
     def _load_file(self):
 
         if os.path.getsize(self._file_name) != 0:
-            with open(self._file_name, 'rb') as file:
-                for item in pickle.load(file):
+            with open(self._file_name, 'rb') as binary_file:
+                for item in pickle.load(binary_file):
                     self.store(item)
-                file.close()
+                binary_file.close()
 
     def _save_file(self):
-        with open(self._file_name, 'wb') as file:
+        with open(self._file_name, 'wb') as binary_file:
             items = super().get_all()
-            pickle.dump(items, file)
-        file.close()
+            pickle.dump(items, binary_file)
+        binary_file.close()
 
     def store(self, item):
         result = super().store(item)
@@ -47,7 +47,7 @@ class BinaryFileRepository(IterableBasedRepository):
 
 
 def test():
-    repo = BinaryFileRepository('test_file.bin', Book)
+    repo = BinaryFileRepository('temp.bin', Book)
     book0 = Book(0, 'da', '500')
     print(repo.store(Book(1, "1", "11")))
     repo.store(Book(99, 'idk', 'idk2'))
@@ -66,12 +66,12 @@ def test():
 
 
 # books = [Book(1, "in cautarea timpului pierdut", "m. proust"), Book(2, "v s b c f m", "liviu guta")]
-# file = open("binary.pickle", 'wb')
-# pickle.dump(books, file)
-# file.close()
+# binary_file = open("binary.pickle", 'wb')
+# pickle.dump(books, binary_file)
+# binary_file.close()
 #
-# file = open('binary.pickle', 'rb')
-# for l in pickle.load(file):
+# binary_file = open('binary.pickle', 'rb')
+# for l in pickle.load(binary_file):
 #     print(l.__str__())
 
 # repo = BinaryFileRepository('binary.pickle')

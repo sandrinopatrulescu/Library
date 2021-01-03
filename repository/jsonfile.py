@@ -1,6 +1,8 @@
 import json
 import os
 
+import jsonpickle
+
 from domain.book import Book
 from repository.repo import Repository, IterableBasedRepository
 
@@ -16,8 +18,7 @@ class JsonFileRepository(IterableBasedRepository):
             with open(self._file_name, 'r') as json_file:
                 json_serialized_items = json.load(json_file)
                 for json_serialized_item in json_serialized_items:
-                    values_of_attributes = json.loads(json_serialized_item)
-                    item = self.type(*[values_of_attributes[attribute] for attribute in values_of_attributes])
+                    item = jsonpickle.decode(json_serialized_item)
                     super().store(item)
                 json_file.close()
 
@@ -26,10 +27,13 @@ class JsonFileRepository(IterableBasedRepository):
             json_serialized_items = []
             items = self.get_all()
             for item in items:
-                json_serialized_item = json.dumps(item.__dict__)
+                json_serialized_item = jsonpickle.encode(item)
                 json_serialized_items.append(json_serialized_item)
             json.dump(json_serialized_items, json_file)
             json_file.close()
+
+    def test(self):
+        pass
 
     def store(self, item):
         result = super().store(item)
@@ -53,7 +57,7 @@ class JsonFileRepository(IterableBasedRepository):
 
 
 def test():
-    repo = JsonFileRepository('test_json.json', Book)
+    repo = JsonFileRepository('temp.json', Book)
     book0 = Book(0, 'da', '500')
 
     def add_entries():
@@ -226,13 +230,13 @@ def test():
     book = Book(1, "in cautarea timpului pierdut", "m. proust")
     print(book.__dict__)
 
-    with open('test_json.json', 'w') as json_file:
+    with open('temp.json', 'w') as json_file:
         data = []
         for book in books:
             data.append(json.dumps(book.__dict__))
         json.dump(data, json_file)
 
-    with open('test_json.json', 'r') as json_file:
+    with open('temp.json', 'r') as json_file:
         data_as_json = json.load(json_file)
         for json_dict in data_as_json:
             # print(json_dict)
@@ -246,11 +250,11 @@ test()
 
 """
 def _load_file(self):
-    with open('test_json.json', 'r') as json_file:
+    with open('temp.json', 'r') as json_file:
     
 
 def _save_file(self):
-    with open('test_json.json', 'w') as json_file:
+    with open('temp.json', 'w') as json_file:
         books = self.get_all()
         for book in books:
             json.dump(book.__dict__, json_file)
@@ -258,7 +262,7 @@ def _save_file(self):
 """
 
 
-# with open('test_json.json', 'r') as json_file:
+# with open('temp.json', 'r') as json_file:
 #     data = json.load(json_file)
 #     for line in data:
 #         print(data)

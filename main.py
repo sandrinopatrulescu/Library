@@ -81,7 +81,7 @@ def add_entries():
     rental_service.return_book(903, 1, 101)
 
 
-    '''
+    #'''
     undo_service.undo()
     undo_service.undo()
     undo_service.undo()
@@ -97,9 +97,9 @@ def add_entries():
 
     # print(rental_service.list())
 
-    # book_service.create(7, "da", "da")
-    # book_service.update(7, 8, "nu", "nu")
-    '''
+    book_service.create(7, "da", "da")
+    book_service.update(7, 8, "nu", "nu")
+    #'''
 
 
 if __name__ == "__main__":
@@ -179,7 +179,8 @@ if __name__ == "__main__":
     '''
 
     # DO NOT CALL add_entries when using file repository which is non_empty
-    add_entries()  # adding initial entries
+    if len(book_repository) == 0 and len(client_repository) == 0 and len(rental_repository) == 0:
+        add_entries()  # adding initial entries
     # print(book_service.list()) - working
 
 
