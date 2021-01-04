@@ -169,7 +169,6 @@ class RentalService(object):
             return "Book was successfully returned"
         return rental
 
-
     def most_rented_books(self):
         """
         !!! counts even if book wasn't returned

@@ -9,6 +9,7 @@ from repository.repo import Repository, IterableBasedRepository
 Swap 'IterableBasedRepository' and 'Repository when necessary'
 '''
 
+
 class FileRepository(IterableBasedRepository):
     def __init__(self, filename, entity_type):
         super().__init__(entity_type)
