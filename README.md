@@ -1,10 +1,12 @@
-# Assignment 10
-## Requirements
-Create a Python module that contains an iterable data structure, a sort method and a filter method, together with complete PyUnit unit tests (100% coverage). The module must be reusable in other projects. Update your code for Assignment6-9 to use the data structure (for storing objects in the repository) and both functions (in the repository or service layer) from this module.
+# Library
 
-## What you will need to do
-- Implement an iterable data structure. Study the [`__setItem__`](https://docs.python.org/3/reference/datamodel.html#object),`__getitem__`, `__delItem__`, `__next__` and `__iter__` Python methods.
-- Implement a sorting algorithm that was not studied during the lecture or seminar (no bubble sort, cocktail sort, merge sort, insert sort, quicksort). You can use one of shell sort, comb sort, bingo sort, gnome sort, or other sorting method. Prove that you understand the sorting method implemented. The sort function will accept two parameters: the list to be sorted as well as a comparison function used to determine the order between two elements.
-- Implement a filter function that can be used to filter the elements from a list. The function will use 2 parameters: the list to be filtered, and an acceptance function that decided whether a given value passes the filter.
+## A Python application for a book library.
 
-**Deadline is week 12.**
+The application provides:
+1. Clients and books management. Add, remove or update clients and books.
+2. Rent or return rented books.
+3. Search for clients and books.
+4. Get various statistical information like the most rented books or the most active clients.
+5. Undo and redo operations.
+6. Text, binary and JSON data storage.
+7. Both a console and a graphical user interface.
